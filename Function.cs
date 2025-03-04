@@ -5,6 +5,9 @@ using Org.BouncyCastle.Asn1.Ocsp;
 using static System.Net.WebRequestMethods;
 using System.Reflection.Emit;
 using System.Text;
+using CashoutServices.Services;
+using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace CashoutServices
 {
@@ -12,7 +15,7 @@ namespace CashoutServices
     {
         private static readonly IConfiguration configuration=new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
 
-
+        public static RedisServices redisServices;
         public static string GetConfiguration(string key)
         {
             try
@@ -171,6 +174,92 @@ namespace CashoutServices
                 return responseString;
             }
             
+        }
+
+
+        public static string CheckToken(string partnerID)
+        {
+            return redisServices.GetToken(partnerID);
+
+        }
+
+        public static void SetToken(string key, string token, TimeSpan expires)
+        {
+            redisServices.SetToken(key, token, expires);
+        }
+
+        public static string ComputeSHA256(string content)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(content));
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+
+        public static string ComputeHMACSHA512(string key, string content)
+        {
+            using (HMACSHA512 hmac = new HMACSHA512(Encoding.UTF8.GetBytes(key)))
+            {
+                byte[] hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(content));
+                return Convert.ToBase64String(hashBytes);
+            }
+        }
+        public static string ExtractRelativeURL(string endpoint)
+        {
+            try
+            {
+                Uri fullUri = new Uri(endpoint);
+                string relativePath = fullUri.PathAndQuery;
+                if (relativePath.StartsWith("/")) relativePath = relativePath.Substring(1);
+                return relativePath;
+            }
+            catch (UriFormatException ex)
+            {
+                throw new ArgumentException("Format URL Salah");
+            }
+        }
+
+        public static string MinifyJSON(string jsonContent)
+        {
+            dynamic jsonObject = JsonConvert.DeserializeObject(jsonContent);
+            return JsonConvert.SerializeObject(jsonObject, Formatting.None);
+        }
+
+        public static RSA LoadPrivateKeyFromPem(string pemContents)
+        {
+            var rsa = RSA.Create();
+            rsa.ImportFromPem(pemContents);
+            return rsa;
+        }
+
+        public static string GenerateSignatureService( string clientSecret,string endpoint, string timeStamp, string bearerToken, string jsonContent)
+        {
+            string relativeUrl = ExtractRelativeURL(endpoint);
+            string minifiedJson = MinifyJSON(jsonContent);
+            string shaResult = ComputeSHA256(minifiedJson);
+            string stringToSign = $"POST:{relativeUrl}:{bearerToken}:{shaResult}:{timeStamp}";
+            string signature = ComputeHMACSHA512(clientSecret, stringToSign);
+            return signature;
+
+        }
+        public static string GenerateXSignature(string privateKey,string clientID, string timeStamp)
+        {
+            string stringToSign = $"{clientID}|{timeStamp}";
+
+            // Load the private key content from the configuration file
+            string privateKeyContent = System.IO.File.ReadAllText(privateKey);
+
+            // Create the RSA instance and sign the data
+            using (RSA rsa = Function.LoadPrivateKeyFromPem(privateKeyContent))
+            {
+                byte[] stringToSignBytes = Encoding.UTF8.GetBytes(stringToSign);
+                byte[] signatureBytes = rsa.SignData(stringToSignBytes, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+
+                string signatureBase64 = Convert.ToBase64String(signatureBytes);
+
+                return signatureBase64;
+            }
         }
 
     }

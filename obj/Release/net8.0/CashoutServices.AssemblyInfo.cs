@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("2ebeec8e-cb19-44f5-8615-5f4912f2ebdd")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CashoutServices")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2bcca5455d953999ea30e304beb6d8252ac9808")]
 [assembly: System.Reflection.AssemblyProductAttribute("CashoutServices")]

@@ -1,4 +1,5 @@
 ﻿using Org.BouncyCastle.Asn1.IsisMtt.X509;
+using System.ComponentModel.DataAnnotations;
 using System.Security.AccessControl;
 
 namespace CashoutServices.Models
@@ -149,4 +150,21 @@ namespace CashoutServices.Models
     }
 
 
-}
+    public class AdditionalInfoISaku
+    {
+        public string TrxType { get; set; }
+        public string merchantId { get; set; }
+        public string subMerchantId { get; set; }
+        public string externalStoreId { get; set; }
+
+        public AdditionalInfoISaku() { }
+
+        public AdditionalInfoISaku(string TrxType, string merchantId, string subMerchantId, string externalStoreId)
+        {
+            this.TrxType = TrxType;
+            this.merchantId = merchantId;
+            this.subMerchantId = subMerchantId;
+            this.externalStoreId = externalStoreId;
+        }
+    }
+ }

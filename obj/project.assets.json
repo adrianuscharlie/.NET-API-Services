@@ -5301,23 +5301,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adria\\.nuget\\packages\\": {},
+    "C:\\Users\\charlie\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Coding\\NET\\CashoutServices\\CashoutServices.csproj",
+      "projectUniqueName": "D:\\.NET-Core-WebAPI-CashoutServices\\CashoutServices.csproj",
       "projectName": "CashoutServices",
-      "projectPath": "D:\\Coding\\NET\\CashoutServices\\CashoutServices.csproj",
-      "packagesPath": "C:\\Users\\adria\\.nuget\\packages\\",
-      "outputPath": "D:\\Coding\\NET\\CashoutServices\\obj\\",
+      "projectPath": "D:\\.NET-Core-WebAPI-CashoutServices\\CashoutServices.csproj",
+      "packagesPath": "C:\\Users\\charlie\\.nuget\\packages\\",
+      "outputPath": "D:\\.NET-Core-WebAPI-CashoutServices\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\adria\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\charlie\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5344,7 +5344,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -5418,7 +5418,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

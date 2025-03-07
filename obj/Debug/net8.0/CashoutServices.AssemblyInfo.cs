@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CashoutServices")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2bcca5455d953999ea30e304beb6d8252ac9808")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f385e561abe34782d257912f601a03250d44b08")]
 [assembly: System.Reflection.AssemblyProductAttribute("CashoutServices")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CashoutServices")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

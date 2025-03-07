@@ -36,11 +36,6 @@ namespace CashoutServices.Partner
             return detail;
         }
 
-        public object Notification(Request request, ConfigRequest config, string url, string trxID)
-        {
-            throw new NotImplementedException();
-        }
-
         public object Reversal(Request request, ConfigRequest config, string url, string trxID)
         {
             throw new NotImplementedException();

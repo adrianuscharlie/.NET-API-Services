@@ -8,7 +8,6 @@ namespace CashoutServices.Services
     {
         object Cashout(Request request);
         object Reversal(Request request);
-        object Notification(Request request);
 
     }
     public class CashoutService:ICashoutServices
@@ -22,23 +21,38 @@ namespace CashoutServices.Services
 
         public object Cashout(Request request)
         {
-            Log.Information("Request Transaksi Masuk {@request}", request);
+            Log.Information($"Get Request Configuration with PartnerID : {request.partnerID}");
             ConfigRequest config = Function.GetConfigRequest(request.partnerID);
+            Log.Information($"Getting Mode Kredigram Handler for {config.kredigram} {config.partner}");
             var handler = kredigramFactory.GetPartnerHandler(config.kredigram,config.partner);
             string url = Function.GetURL(request.partnerID, request.trxType);
             string trxID = Function.GenerateTRXID(request.cacode);
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            Log.Information($"{trxID} Request Cashout {url} partnerID:{request.partnerID} otp:{request.otp} amount:{request.amount}");
             return handler.Cashout(request,config,url,trxID);
         }
 
-        public object Notification(Request request)
-        {
-            throw new NotImplementedException();
-        }
 
         public object Reversal(Request request)
         {
-            throw new NotImplementedException();
+            Log.Information($"Get Request Configuration with PartnerID : {request.partnerID}");
+            ConfigRequest config = Function.GetConfigRequest(request.partnerID);
+            Log.Information($"Checking Reversal Transaction for {request.detail}");
+            if (!Function.CheckReversal(request.detail.ToString(), config.productType, request.cacode, request.otp))
+            {
+                Response response = new();
+                response.responseMessage = "Transaction Not Found";
+                response.responseCode = "404";
+                Log.Warning($"{response.responseMessage}");
+                return response;
+            }
+            Log.Information($"Getting Mode Kredigram Handler for {config.kredigram} {config.partner}");
+            var handler = kredigramFactory.GetPartnerHandler(config.kredigram, config.partner);
+            string url = Function.GetURL(request.partnerID, request.trxType);
+            string trxID = Function.GenerateTRXID(request.cacode);
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            Log.Information($"{trxID} Request Reversal {url} partnerID:{request.partnerID} otp:{request.otp} amount:{request.amount}");
+            return handler.Reversal(request, config, url, trxID);
         }
     }
 }

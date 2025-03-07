@@ -8,6 +8,10 @@ using System.Text;
 using CashoutServices.Services;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
+using StackExchange.Redis;
+using System.Net.Http.Headers;
+using Serilog;
+using System.Net;
 
 namespace CashoutServices
 {
@@ -15,7 +19,13 @@ namespace CashoutServices
     {
         private static readonly IConfiguration configuration=new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
 
-        public static RedisServices redisServices;
+        private static readonly Lazy<RedisServices> _redisServices = new(() =>
+        {
+            var redis = ConnectionMultiplexer.Connect("localhost:6379");
+            return new RedisServices(redis);
+        });
+
+        public static RedisServices redisServices => _redisServices.Value;
         public static string GetConfiguration(string key)
         {
             try
@@ -65,6 +75,7 @@ namespace CashoutServices
                             }
                             else
                             {
+                                Log.Warning($"Config for partnerID:{partnerID} Not Found!");
                                 return null;
                             }
                         }
@@ -73,6 +84,7 @@ namespace CashoutServices
 
             }catch(Exception ex)
             {
+                Log.Error($"Error Getting Config for partnerID {partnerID} : {ex.Message} \n {ex.StackTrace}");
                 return null;
             }
         }
@@ -106,6 +118,7 @@ namespace CashoutServices
         public static void InsertTransaction(string trxID, string productType, string timeStamp,string amount,
             string otp, string customerNumber, string cacode, string request, string trxType)
         {
+            Log.Information($"Insert Transaction {trxID};{productType};{amount};{otp};{trxType};{request}");
             using(MySqlConnection connection = GetConnection())
             {
                 connection.Open();
@@ -131,6 +144,7 @@ namespace CashoutServices
 
         public static void UpdateTransaction(string trxID, string trxType, string response, string responseCode, string responseMessage, string trxConfirm)
         {
+            Log.Information($"Update Transaction {trxID};{trxType};{response};{responseCode};{responseMessage};{trxConfirm}");
             using (MySqlConnection connection = GetConnection())
             {
                 connection.Open();
@@ -155,23 +169,50 @@ namespace CashoutServices
 
         public static string SendHTTP_POST(string url, string json, Dictionary<string,string> headers = null, string contentType="application/json")
         {
-            string responseString = "";
-            using(HttpClient client=new HttpClient())
+            try
             {
-                client.Timeout = TimeSpan.FromSeconds(15);
-                if (headers != null)
+                string responseString = "";
+                using (HttpClient client = new HttpClient())
                 {
-                    foreach(var header in headers)
+                    client.Timeout = TimeSpan.FromSeconds(15);
+                    if (headers != null)
                     {
-                        client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                        foreach (var header in headers)
+                        {
+                            if (header.Key == "Bearer") client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", header.Value);
+                            else client.DefaultRequestHeaders.Add(header.Key, header.Value);
+
+                        }
                     }
+                    Log.Information($"Send HTTP POST Request {url} with headers:{client.DefaultRequestHeaders.ToString()} body:{json}");
+                    using (HttpContent content = new StringContent(json, Encoding.UTF8, contentType))
+                    {
+                        HttpResponseMessage response = client.PostAsync(url, content).GetAwaiter().GetResult();
+                        responseString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                        Log.Information($"HTTP POST Response : {responseString}");
+                    }
+                    return responseString;
                 }
-                using (HttpContent content = new StringContent(json, Encoding.UTF8, contentType))
+            }
+            catch (WebException webEx)
+            {
+                if (webEx.Response is HttpWebResponse httpResponse)
                 {
-                    HttpResponseMessage response = client.PostAsync(url, content).GetAwaiter().GetResult();
-                    responseString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    int statusCode = (int)httpResponse.StatusCode;
+                    string statusDescription = httpResponse.StatusDescription;
+                    Log.Error($"WebException - Status Code: {statusCode}, Status Message: {statusDescription}");
+                    return $"[ERROR]|{statusCode}|{statusDescription}";
                 }
-                return responseString;
+                else
+                {
+                    Log.Error($"WebException occurred: {webEx.Message}");
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"ERROR Sending HTTP POST Request {url} with body:{json}");
+                return "";
             }
             
         }
@@ -259,6 +300,30 @@ namespace CashoutServices
                 string signatureBase64 = Convert.ToBase64String(signatureBytes);
 
                 return signatureBase64;
+            }
+        }
+
+
+        public static bool CheckReversal(string trxID, string productType, string cacode,  string otp)
+        {
+            try
+            {
+                using(MySqlConnection connection = GetConnection())
+                {
+                    connection.Open();
+                    using(MySqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = $"SELECT COUNT(*) FROM TRANSACTION WHERE " +
+                            "trxID=@trxID and otp=@otp and cacode=@cacode LIMIT 1";
+                        command.Parameters.AddWithValue("@trxID", trxID);
+                        command.Parameters.AddWithValue("@cacode", cacode);
+                        command.Parameters.AddWithValue("@otp", otp);
+                        return Convert.ToInt32(command.ExecuteScalar().ToString()) > 0;
+                    }
+                }
+            }catch(Exception ex)
+            {
+                return false;
             }
         }
 

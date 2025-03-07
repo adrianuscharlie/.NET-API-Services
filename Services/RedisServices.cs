@@ -5,7 +5,12 @@ namespace CashoutServices.Services
     public class RedisServices
     {
 
-        private readonly IDatabase _redisDB;
+        
+        private static readonly Lazy<ConnectionMultiplexer> _lazyConnection =
+        new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("localhost:6379"));
+
+        private static ConnectionMultiplexer Connection => _lazyConnection.Value;
+        private readonly IDatabase _redisDB = Connection.GetDatabase();
         public RedisServices(IConnectionMultiplexer redis)
         {
             _redisDB=redis.GetDatabase();

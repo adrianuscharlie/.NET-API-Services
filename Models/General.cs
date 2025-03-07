@@ -14,6 +14,7 @@ namespace CashoutServices.Models
         public string customerNumber { get; set; }
         public string trxType { get; set; }
         public string amount { get; set; }
+        public object detail { get; set; }
 
     }
 
@@ -94,18 +95,17 @@ namespace CashoutServices.Models
 
 
 
-    public class RequestSNAP
+    public class RequestCashoutSNAP
     {
         public string partnerReferenceNo { get; set; }
         public string customerNumber { get; set; }
         public string otp { get; set; }
         public Amount amount { get; set; }
         public object additionalInfo { get; set; }
+        public RequestCashoutSNAP() { }
     }
 
-
-
-    public class ResponseSNAP
+    public class ResponseCashoutSnap
     {
         public string responseCode { get; set; }
         public string responseMessage { get; set; }
@@ -113,8 +113,30 @@ namespace CashoutServices.Models
         public string partnerReferenceNo { get; set; }
         public string transactionDate { get; set; }
         public object additionalInfo { get; set; }
+    }
 
-        public ResponseSNAP() { }
+    public class RequestReversalSnap
+    {
+        public string originalPartnerReferenceNo { get; set; }
+        public string originalReferenceNo { get; set; }
+        public string customerNumber { get; set; }
+        public string reason { get; set; }
+        public object additionalInfo { get; set; }
+        public RequestReversalSnap() { }
+    }
+
+
+
+    public class ResponseReversalSNAP
+    {
+        public string responseCode { get; set; }
+        public string responseMessage { get; set; }
+        public string OriginalPartnerReferenceNo { get; set; }
+        public string OriginalReferenceNo { get; set; }
+        public string CancelTime { get; set; }
+        public string TransactionDate { get; set; }
+
+        public ResponseReversalSNAP() { }
     }
 
     public class Amount

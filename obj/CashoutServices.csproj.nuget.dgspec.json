@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\.NET-Core-WebAPI-CashoutServices\\CashoutServices.csproj": {}
+    "D:\\Coding\\NET\\CashoutServices\\CashoutServices.csproj": {}
   },
   "projects": {
-    "D:\\.NET-Core-WebAPI-CashoutServices\\CashoutServices.csproj": {
+    "D:\\Coding\\NET\\CashoutServices\\CashoutServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\.NET-Core-WebAPI-CashoutServices\\CashoutServices.csproj",
+        "projectUniqueName": "D:\\Coding\\NET\\CashoutServices\\CashoutServices.csproj",
         "projectName": "CashoutServices",
-        "projectPath": "D:\\.NET-Core-WebAPI-CashoutServices\\CashoutServices.csproj",
-        "packagesPath": "C:\\Users\\charlie\\.nuget\\packages\\",
-        "outputPath": "D:\\.NET-Core-WebAPI-CashoutServices\\obj\\",
+        "projectPath": "D:\\Coding\\NET\\CashoutServices\\CashoutServices.csproj",
+        "packagesPath": "C:\\Users\\adria\\.nuget\\packages\\",
+        "outputPath": "D:\\Coding\\NET\\CashoutServices\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\charlie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\adria\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -82,10 +82,6 @@
               "target": "Package",
               "version": "[9.0.0, )"
             },
-            "Serilog.Sinks.MSSqlServer": {
-              "target": "Package",
-              "version": "[8.1.0, )"
-            },
             "Serilog.Sinks.MySQL": {
               "target": "Package",
               "version": "[5.0.0, )"
@@ -118,7 +114,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

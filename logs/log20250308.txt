@@ -1,0 +1,164 @@
+2025-03-08 00:00:39.691 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/index.html - null null
+2025-03-08 00:00:39.776 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-08 00:00:39.777 +07:00 [INF] Hosting environment: Development
+2025-03-08 00:00:39.777 +07:00 [INF] Content root path: D:\Coding\NET\CashoutServices
+2025-03-08 00:00:39.985 +07:00 [INF] HTTP GET /swagger/index.html responded 200 in 114.1599 ms
+2025-03-08 00:00:39.994 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/index.html - 200 null text/html;charset=utf-8 318.8825ms
+2025-03-08 00:00:40.670 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-08 00:00:40.684 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - 200 16515 application/javascript; charset=utf-8 9.8249ms
+2025-03-08 00:00:40.712 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_vs/browserLink - null null
+2025-03-08 00:00:40.765 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_vs/browserLink - 200 null text/javascript; charset=UTF-8 52.6829ms
+2025-03-08 00:00:40.843 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - null null
+2025-03-08 00:00:40.854 +07:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 9.6667 ms
+2025-03-08 00:00:40.856 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 13.2475ms
+2025-03-08 00:00:41.309 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:44391/api/Cashout - application/json 166
+2025-03-08 00:00:41.321 +07:00 [INF] Executing endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:00:41.349 +07:00 [INF] Route matched with {action = "Post", controller = "Cashout"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(CashoutServices.Models.Request) on controller CashoutServices.Controllers.Cashout (CashoutServices).
+2025-03-08 00:00:41.388 +07:00 [INF] This is a test log entry.
+2025-03-08 00:00:41.390 +07:00 [ERR] An error occurred: Sample error details.
+2025-03-08 00:02:27.200 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/index.html - null null
+2025-03-08 00:02:27.356 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-08 00:02:27.357 +07:00 [INF] Hosting environment: Development
+2025-03-08 00:02:27.357 +07:00 [INF] Content root path: D:\Coding\NET\CashoutServices
+2025-03-08 00:02:27.618 +07:00 [INF] HTTP GET /swagger/index.html responded 200 in 113.4633 ms
+2025-03-08 00:02:27.639 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/index.html - 200 null text/html;charset=utf-8 452.1895ms
+2025-03-08 00:02:27.679 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-08 00:02:27.711 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - 200 16515 application/javascript; charset=utf-8 5.1133ms
+2025-03-08 00:02:27.918 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_vs/browserLink - null null
+2025-03-08 00:02:27.983 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_vs/browserLink - 200 null text/javascript; charset=UTF-8 65.944ms
+2025-03-08 00:02:28.026 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - null null
+2025-03-08 00:02:28.035 +07:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 7.3254 ms
+2025-03-08 00:02:28.036 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 10.0085ms
+2025-03-08 00:02:42.455 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:44391/api/Cashout - application/json 166
+2025-03-08 00:02:42.465 +07:00 [INF] Executing endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:02:42.487 +07:00 [INF] Route matched with {action = "Post", controller = "Cashout"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(CashoutServices.Models.Request) on controller CashoutServices.Controllers.Cashout (CashoutServices).
+2025-03-08 00:02:42.530 +07:00 [INF] This is a test log entry.
+2025-03-08 00:02:42.532 +07:00 [ERR] An error occurred: Sample error details.
+2025-03-08 00:02:45.757 +07:00 [INF] Request Masuk  CACODE:C00001;customerNumber:6281381429485;amount:100000
+2025-03-08 00:03:52.616 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/index.html - null null
+2025-03-08 00:03:52.719 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-08 00:03:52.720 +07:00 [INF] Hosting environment: Development
+2025-03-08 00:03:52.720 +07:00 [INF] Content root path: D:\Coding\NET\CashoutServices
+2025-03-08 00:03:52.899 +07:00 [INF] HTTP GET /swagger/index.html responded 200 in 102.4178 ms
+2025-03-08 00:03:52.916 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/index.html - 200 null text/html;charset=utf-8 314.0949ms
+2025-03-08 00:03:53.018 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-08 00:03:53.053 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - 200 16515 application/javascript; charset=utf-8 5.7834ms
+2025-03-08 00:03:53.255 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_vs/browserLink - null null
+2025-03-08 00:03:53.321 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_vs/browserLink - 200 null text/javascript; charset=UTF-8 67.9869ms
+2025-03-08 00:03:53.408 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - null null
+2025-03-08 00:03:53.416 +07:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 6.6099 ms
+2025-03-08 00:03:53.418 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 9.8769ms
+2025-03-08 00:04:05.679 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:44391/api/Cashout - application/json 166
+2025-03-08 00:04:05.690 +07:00 [INF] Executing endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:04:05.713 +07:00 [INF] Route matched with {action = "Post", controller = "Cashout"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(CashoutServices.Models.Request) on controller CashoutServices.Controllers.Cashout (CashoutServices).
+2025-03-08 00:04:05.750 +07:00 [INF] This is a test log entry.
+2025-03-08 00:04:05.752 +07:00 [ERR] An error occurred: Sample error details.
+2025-03-08 00:04:07.733 +07:00 [INF] Request Masuk  CACODE:C00001;customerNumber:6281381429485;amount:100000
+2025-03-08 00:35:22.142 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/index.html - null null
+2025-03-08 00:35:22.279 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-08 00:35:22.280 +07:00 [INF] Hosting environment: Development
+2025-03-08 00:35:22.280 +07:00 [INF] Content root path: D:\Coding\NET\CashoutServices
+2025-03-08 00:35:22.438 +07:00 [INF] HTTP GET /swagger/index.html responded 200 in 81.8046 ms
+2025-03-08 00:35:22.449 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/index.html - 200 null text/html;charset=utf-8 316.792ms
+2025-03-08 00:35:22.819 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-08 00:35:22.824 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - 200 16515 application/javascript; charset=utf-8 5.5817ms
+2025-03-08 00:35:22.839 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_vs/browserLink - null null
+2025-03-08 00:35:22.875 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.7161ms
+2025-03-08 00:35:22.918 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - null null
+2025-03-08 00:35:22.925 +07:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 6.2038 ms
+2025-03-08 00:35:22.926 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 8.2687ms
+2025-03-08 00:35:28.105 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:44391/api/Cashout - application/json 166
+2025-03-08 00:35:28.120 +07:00 [INF] Executing endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:35:28.148 +07:00 [INF] Route matched with {action = "Post", controller = "Cashout"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(CashoutServices.Models.Request) on controller CashoutServices.Controllers.Cashout (CashoutServices).
+2025-03-08 00:35:28.185 +07:00 [INF] Request Masuk  CACODE:C00001;customerNumber:6281381429485;amount:100000
+2025-03-08 00:35:28.186 +07:00 [INF] Get Request Configuration with PartnerID : 000102
+2025-03-08 00:35:28.202 +07:00 [INF] Getting Mode Kredigram Handler for SNAP GOPAY
+2025-03-08 00:35:28.210 +07:00 [INF] C0000120250308003528 Request Cashout https://localhost:44357/api/Cashout partnerID:000102 otp:66666 amount:100000
+2025-03-08 00:35:28.323 +07:00 [INF] Insert Transaction C0000120250308003528;GOPAYCO;100000;66666;CASHOUT;{"partnerReferenceNo":"C0000120250308003528","customerNumber":"6281381429485","otp":"66666","amount":{"value":"100000","currency":"IDR"},"additionalInfo":{"merchantId":"C00001","merchantName":"INDONESIA C00001","externalStoreId":"","branchId":"","terminalId":""}}
+2025-03-08 00:35:28.913 +07:00 [INF] Send HTTP POST Request https://localhost:44357/api/Cashout with headers:Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRHb3BheTY5MiIsImp0aSI6ImQ2NWQ0OWFmLTFiZTctNDBkNy1hODdjLTgyMjRiYTFmODU2NyIsInJvbGUiOiJCMkIgUGFydG5lciIsImV4cCI6MTc0MTM3MjUyOCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNTcvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzOTEifQ.IrZDm7yM8UPnJ3LDeIHknt0Twd-EhWFxNZh6_8Cam-o
+X-TIMESTAMP: 2025-03-08T00:35:28+07:00
+X-SIGNATURE: BsLSfyTUkZJ6yABPDz5NrZnJRwyWJlctLlSmHLJ0DhQ1gUIPsT1ZrI7VPJPJd+aB1H0HE6dblG84Qn8nKqqH3A==
+X-PARTNER-ID: clientGopay692
+X-EXTERNAL-ID: 
+CHANNEL-ID: 95221
+ body:{"partnerReferenceNo":"C0000120250308003528","customerNumber":"6281381429485","otp":"66666","amount":{"value":"100000","currency":"IDR"},"additionalInfo":{"merchantId":"C00001","merchantName":"INDONESIA C00001","externalStoreId":"","branchId":"","terminalId":""}}
+2025-03-08 00:35:28.932 +07:00 [INF] HTTP POST Response : {"responseCode":"00","responseMessage":"SUKSES","referenceNo":"XX-C0000120250308003528","partnerReferenceNo":"C0000120250308003528","transactionDate":"2025-03-08 00:35:28","additionalInfo":{"merchantId":"C00001","merchantName":"INDONESIA C00001","externalStoreId":"","branchId":"","terminalId":""}}
+2025-03-08 00:35:28.952 +07:00 [INF] CASHOUT RETURN : CashoutServices.Models.ResponseCashoutSnap
+2025-03-08 00:35:28.958 +07:00 [INF] Executing OkObjectResult, writing value of type 'CashoutServices.Models.ResponseCashoutSnap'.
+2025-03-08 00:35:28.978 +07:00 [INF] Executed action CashoutServices.Controllers.Cashout.Post (CashoutServices) in 827.033ms
+2025-03-08 00:35:28.979 +07:00 [INF] Executed endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:35:28.979 +07:00 [INF] HTTP POST /api/Cashout responded 200 in 866.3327 ms
+2025-03-08 00:35:28.979 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:44391/api/Cashout - 200 null application/json; charset=utf-8 875.383ms
+2025-03-08 00:43:41.643 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/index.html - null null
+2025-03-08 00:43:41.823 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-08 00:43:41.824 +07:00 [INF] Hosting environment: Development
+2025-03-08 00:43:41.825 +07:00 [INF] Content root path: D:\Coding\NET\CashoutServices
+2025-03-08 00:43:42.047 +07:00 [INF] HTTP GET /swagger/index.html responded 200 in 131.4530 ms
+2025-03-08 00:43:42.058 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/index.html - 200 null text/html;charset=utf-8 440.0675ms
+2025-03-08 00:43:42.479 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-08 00:43:42.497 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_vs/browserLink - null null
+2025-03-08 00:43:42.499 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - 200 16515 application/javascript; charset=utf-8 11.8299ms
+2025-03-08 00:43:42.578 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_vs/browserLink - 200 null text/javascript; charset=UTF-8 81.1154ms
+2025-03-08 00:43:42.639 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - null null
+2025-03-08 00:43:42.650 +07:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 9.4593 ms
+2025-03-08 00:43:42.652 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 12.586ms
+2025-03-08 00:43:45.556 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:44391/api/Cashout - application/json 166
+2025-03-08 00:43:45.566 +07:00 [INF] Executing endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:43:45.591 +07:00 [INF] Route matched with {action = "Post", controller = "Cashout"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(CashoutServices.Models.Request) on controller CashoutServices.Controllers.Cashout (CashoutServices).
+2025-03-08 00:43:45.632 +07:00 [INF] Request Masuk  CACODE:C00001;customerNumber:6281381429485;amount:100000
+2025-03-08 00:43:45.634 +07:00 [INF] Get Request Configuration with PartnerID : 000102
+2025-03-08 00:43:45.673 +07:00 [INF] Getting Mode Kredigram Handler for SNAP GOPAY
+2025-03-08 00:43:45.681 +07:00 [INF] C0000120250308004345 Request Cashout https://localhost:44357/api/Cashout partnerID:000102 otp:66666 amount:100000
+2025-03-08 00:43:45.764 +07:00 [INF] Insert Transaction C0000120250308004345;GOPAYCO;100000;66666;CASHOUT;{"partnerReferenceNo":"C0000120250308004345","customerNumber":"6281381429485","otp":"66666","amount":{"value":"100000","currency":"IDR"},"additionalInfo":{"merchantId":"C00001","merchantName":"INDONESIA C00001","externalStoreId":"","branchId":"","terminalId":""}}
+2025-03-08 00:43:46.012 +07:00 [INF] Send HTTP POST Request https://localhost:44357/api/Cashout with headers:Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRHb3BheTY5MiIsImp0aSI6ImQ2NWQ0OWFmLTFiZTctNDBkNy1hODdjLTgyMjRiYTFmODU2NyIsInJvbGUiOiJCMkIgUGFydG5lciIsImV4cCI6MTc0MTM3MjUyOCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNTcvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzOTEifQ.IrZDm7yM8UPnJ3LDeIHknt0Twd-EhWFxNZh6_8Cam-o
+X-TIMESTAMP: 2025-03-08T00:43:45+07:00
+X-SIGNATURE: awi3xYW//wZJYJ3rKwdy5xIS+5QJfEhtqRAAzPhVlN7w8+k7dxY7PUPPK2CXWrNytV8eslD/h99i87X7vWKdhw==
+X-PARTNER-ID: clientGopay692
+X-EXTERNAL-ID: 
+CHANNEL-ID: 95221
+ body:{"partnerReferenceNo":"C0000120250308004345","customerNumber":"6281381429485","otp":"66666","amount":{"value":"100000","currency":"IDR"},"additionalInfo":{"merchantId":"C00001","merchantName":"INDONESIA C00001","externalStoreId":"","branchId":"","terminalId":""}}
+2025-03-08 00:43:46.103 +07:00 [INF] HTTP POST Response : {"responseCode":"00","responseMessage":"SUKSES","referenceNo":"XX-C0000120250308004345","partnerReferenceNo":"C0000120250308004345","transactionDate":"2025-03-08 00:43:46","additionalInfo":{"merchantId":"C00001","merchantName":"INDONESIA C00001","externalStoreId":"","branchId":"","terminalId":""}}
+2025-03-08 00:43:46.139 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2025-03-08 00:43:46.145 +07:00 [INF] Executed action CashoutServices.Controllers.Cashout.Post (CashoutServices) in 548.5729ms
+2025-03-08 00:43:46.145 +07:00 [INF] Executed endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:43:46.145 +07:00 [INF] HTTP POST /api/Cashout responded 200 in 584.9081 ms
+2025-03-08 00:43:46.146 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:44391/api/Cashout - 200 null text/plain; charset=utf-8 589.1515ms
+2025-03-08 00:53:29.838 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/index.html - null null
+2025-03-08 00:53:29.935 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-08 00:53:29.935 +07:00 [INF] Hosting environment: Development
+2025-03-08 00:53:29.936 +07:00 [INF] Content root path: D:\Coding\NET\CashoutServices
+2025-03-08 00:53:30.094 +07:00 [INF] HTTP GET /swagger/index.html responded 200 in 83.7141 ms
+2025-03-08 00:53:30.105 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/index.html - 200 null text/html;charset=utf-8 279.5344ms
+2025-03-08 00:53:30.689 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-08 00:53:30.689 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_vs/browserLink - null null
+2025-03-08 00:53:30.695 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - 200 16515 application/javascript; charset=utf-8 5.9998ms
+2025-03-08 00:53:30.748 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_vs/browserLink - 200 null text/javascript; charset=UTF-8 59.8944ms
+2025-03-08 00:53:30.807 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - null null
+2025-03-08 00:53:30.818 +07:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 9.4070 ms
+2025-03-08 00:53:30.820 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 12.2243ms
+2025-03-08 00:53:36.905 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:44391/api/Cashout - application/json 187
+2025-03-08 00:53:36.915 +07:00 [INF] Executing endpoint 'CashoutServices.Controllers.Cashout.Post (CashoutServices)'
+2025-03-08 00:53:36.936 +07:00 [INF] Route matched with {action = "Post", controller = "Cashout"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(CashoutServices.Models.Request) on controller CashoutServices.Controllers.Cashout (CashoutServices).
+2025-03-08 00:53:36.975 +07:00 [INF] Request Masuk  CACODE:C00001;customerNumber:6281381429485;amount:100000;trxType:REVERSAL
+2025-03-08 00:53:36.976 +07:00 [INF] Get Request Configuration with PartnerID : 000102
+2025-03-08 00:53:37.014 +07:00 [INF] Getting Mode Kredigram Handler for SNAP GOPAY
+2025-03-08 00:53:48.024 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/index.html - null null
+2025-03-08 00:53:48.110 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-08 00:53:48.111 +07:00 [INF] Hosting environment: Development
+2025-03-08 00:53:48.111 +07:00 [INF] Content root path: D:\Coding\NET\CashoutServices
+2025-03-08 00:53:48.285 +07:00 [INF] HTTP GET /swagger/index.html responded 200 in 87.4204 ms
+2025-03-08 00:53:48.293 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/index.html - 200 null text/html;charset=utf-8 284.1176ms
+2025-03-08 00:53:48.326 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-08 00:53:48.331 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_framework/aspnetcore-browser-refresh.js - 200 16515 application/javascript; charset=utf-8 4.7754ms
+2025-03-08 00:53:48.609 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/_vs/browserLink - null null
+2025-03-08 00:53:48.681 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/_vs/browserLink - 200 null text/javascript; charset=UTF-8 71.8005ms
+2025-03-08 00:53:48.754 +07:00 [INF] Request starting HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - null null
+2025-03-08 00:53:48.767 +07:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 12.0052 ms
+2025-03-08 00:53:48.771 +07:00 [INF] Request finished HTTP/2 GET https://localhost:44391/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 17.371ms
+2025-03-08 00:53:53.556 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:44391/api/Reversal - application/json 187
+2025-03-08 00:53:53.567 +07:00 [INF] Executing endpoint 'CashoutServices.Controllers.Reversal.Post (CashoutServices)'
+2025-03-08 00:53:53.598 +07:00 [INF] Route matched with {action = "Post", controller = "Reversal"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Post(CashoutServices.Models.Request) on controller CashoutServices.Controllers.Reversal (CashoutServices).
+2025-03-08 00:53:53.648 +07:00 [INF] Request Masuk  CACODE:C00001;customerNumber:6281381429485;amount:100000;trxType:REVERSAL
+2025-03-08 00:53:53.649 +07:00 [INF] Get Request Configuration with PartnerID : 000102
+2025-03-08 00:53:53.680 +07:00 [INF] Checking Reversal Transaction for C0000120250308004345
+2025-03-08 00:53:53.684 +07:00 [INF] Getting Mode Kredigram Handler for SNAP GOPAY

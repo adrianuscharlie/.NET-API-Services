@@ -15,7 +15,7 @@ namespace CashoutServices.Partner
         public object Cashout(Request request, ConfigRequest config, string url, string trxID)
         {
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            RequestSNAP requestSnap = new RequestSNAP();
+            RequestCashoutSNAP requestSnap = new RequestCashoutSNAP();
             requestSnap.partnerReferenceNo = trxID;
             requestSnap.customerNumber = request.customerNumber;
             requestSnap.otp = request.otp;
@@ -27,26 +27,30 @@ namespace CashoutServices.Partner
             Function.InsertTransaction(trxID, config.productType, timestamp, request.amount, request.otp, request.customerNumber, request.cacode, json, request.trxType);
             Dictionary<string,string> headers=GetHeaders(request.partnerID,url,config.isToken);
             string responseString = Function.SendHTTP_POST(url, json,headers);
-
-
-            Response response = JsonConvert.DeserializeObject<Response>(responseString);
-            Function.UpdateTransaction(trxID, request.trxType, json, response.responseCode, response.responseMessage, response.originalReferenceNo);
-            return response;
+            ResponseCashoutSnap response = new();
+            if (!string.IsNullOrEmpty(responseString)&& !responseString.StartsWith("[ERROR]")){
+                response = JsonConvert.DeserializeObject<ResponseCashoutSnap>(responseString);
+                Function.UpdateTransaction(trxID, request.trxType, responseString, response.responseCode, response.responseMessage, response.referenceNo);
+            }else if (responseString.StartsWith("[ERROR]"))
+            {
+                response.responseCode = responseString.Split("|")[1];
+                response.responseMessage = responseString.Split("|")[2];
+            }
+            else
+            {
+                response.responseCode = "21";
+                response.responseMessage = "Server  Partner Timeout or Internal Server  Error";
+            }
+                return response;
         }
 
-        public object Notification(Request request, ConfigRequest config, string url, string trxID)
-        {
-            throw new NotImplementedException();
-        }
 
         public object Reversal(Request request, ConfigRequest config, string url, string trxID)
         {
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            RequestSNAP requestSnap = new RequestSNAP();
-            requestSnap.partnerReferenceNo = trxID;
+            RequestReversalSnap requestSnap = new RequestReversalSnap();
+            requestSnap.originalPartnerReferenceNo = trxID;
             requestSnap.customerNumber = request.customerNumber;
-            requestSnap.otp = request.otp;
-            requestSnap.amount = new Amount(request.amount);
             requestSnap.additionalInfo = GetAdditionalInfo(request, config);
 
 
@@ -54,10 +58,22 @@ namespace CashoutServices.Partner
             Function.InsertTransaction(trxID, config.productType, timestamp, request.amount, request.otp, request.customerNumber, request.cacode, json, request.trxType);
             Dictionary<string, string> headers = GetHeaders(request.partnerID, url, config.isToken);
             string responseString = Function.SendHTTP_POST(url, json, headers);
-
-
-            Response response = JsonConvert.DeserializeObject<Response>(responseString);
-            Function.UpdateTransaction(trxID, request.trxType, json, response.responseCode, response.responseMessage, response.originalReferenceNo);
+            ResponseReversalSNAP response = new();
+            if (!string.IsNullOrEmpty(responseString) && !responseString.StartsWith("[ERROR]"))
+            {
+                response = JsonConvert.DeserializeObject<ResponseReversalSNAP>(responseString);
+                Function.UpdateTransaction(trxID, request.trxType, responseString, response.responseCode, response.responseMessage, response.OriginalReferenceNo);
+            }
+            else if (responseString.StartsWith("[ERROR]"))
+            {
+                response.responseCode = responseString.Split("|")[1];
+                response.responseMessage = responseString.Split("|")[2];
+            }
+            else
+            {
+                response.responseCode = "21";
+                response.responseMessage = "Server  Partner Timeout or Internal Server  Error";
+            }
             return response;
         }
 
@@ -69,6 +85,7 @@ namespace CashoutServices.Partner
 
         public virtual Dictionary<string,string> GetHeaders(string partnerID,string url,bool isToken=false,string json="")
         {
+
             string timeStamp= DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
             Dictionary<string,string> headers=new Dictionary<string,string>();
             if (isToken)
@@ -202,10 +219,10 @@ namespace CashoutServices.Partner
 
     public class Gopay : SNAP
     {
-        private static readonly string clientSecret=Function.GetConfiguration("applicationSettings:gopay:clientSecret");
-        private static readonly string clientID=Function.GetConfiguration("applicationSettings:gopay:clientID");
-        private static string channelID = Function.GetConfiguration("applicationSettings:gopay:channelID");
-        private static readonly string privateKey=Function.GetConfiguration("applicationSettings:gopay:privateKey");
+        private static readonly string clientSecret=Function.GetConfiguration("ApplicationSettings:merchant:Gopay:clientSecret");
+        private static readonly string clientID=Function.GetConfiguration("ApplicationSettings:merchant:Gopay:clientID");
+        private static string channelID = Function.GetConfiguration("ApplicationSettings:merchant:Gopay:channelID");
+        private static readonly string privateKey=Function.GetConfiguration("ApplicationSettings:merchant:Gopay:privateKey");
         public override object GetAdditionalInfo(Request request,ConfigRequest config)
         {
             AdditionalInfoGopay detail = new();
@@ -229,20 +246,18 @@ namespace CashoutServices.Partner
             }
             string signatureServices = Function.GenerateSignatureService(clientSecret,url, timeStamp, token, json);
             string externalID = "";
-            using (JsonDocument document = JsonDocument.Parse(json))
-            {
-                JsonElement root = document.RootElement;
-                string[] keyToFind = { "partnerReferenceNo", "originalPartnerReferenceNo" };
-                foreach (string key in keyToFind)
-                {
-                    if (root.TryGetProperty(key, out var value))
-                    {
-                        externalID = value + DateTime.Now.ToString("yyyyMMddss");
-                        break;
-                    }
-                }
-            }
-            headers.Add("Bearer", token);
+            //using (JsonDocument document = JsonDocument.Parse(json))
+            //{
+            //    JsonElement root = document.RootElement;
+            //    string[] keyToFind = { "partnerReferenceNo", "originalPartnerReferenceNo" };
+            //    foreach (string key in keyToFind)
+            //    {
+            //        if (root.TryGetProperty(key, out var value))
+            //        {
+            //            externalID = value + DateTime.Now.ToString("yyyyMMddss");
+            //            break;
+            //        }
+            //    }
             headers.Add("X-TIMESTAMP", timeStamp);
             headers.Add("X-SIGNATURE", signatureServices);
             headers.Add("X-PARTNER-ID", clientID);
@@ -260,7 +275,7 @@ namespace CashoutServices.Partner
                 ["grantType"] = "client_credentials",
                 ["additionalInfo"] = new JObject
                 {
-                    ["clientId"] = "your-client-id",
+                    ["clientId"] = clientID,
                     ["clientSecret"] = clientSecret
                 }
             };

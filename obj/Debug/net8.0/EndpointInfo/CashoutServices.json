@@ -35,6 +35,37 @@
           }
         }
       }
+    },
+    "/api/Reversal": {
+      "post": {
+        "tags": [
+          "Reversal"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -64,6 +95,9 @@
           },
           "amount": {
             "type": "string",
+            "nullable": true
+          },
+          "detail": {
             "nullable": true
           }
         },

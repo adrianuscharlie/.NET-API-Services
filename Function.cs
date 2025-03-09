@@ -1,9 +1,5 @@
 ﻿using CashoutServices.Models;
-using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Ocsp;
-using static System.Net.WebRequestMethods;
-using System.Reflection.Emit;
 using System.Text;
 using CashoutServices.Services;
 using Newtonsoft.Json;
@@ -49,6 +45,7 @@ namespace CashoutServices
 
         public static ConfigRequest GetConfigRequest(string partnerID)
         {
+            Log.Information($"Get Request Configuration with PartnerID : {partnerID}");
             ConfigRequest request = new(partnerID);
             try
             {
@@ -90,6 +87,7 @@ namespace CashoutServices
         }
         public static string GetURL(string partnerID, string trxType)
         {
+            Log.Information($"Getting URL for Partner {partnerID} with TrxType {trxType}");
             try
             {
                 using(MySqlConnection connection = GetConnection())
@@ -100,11 +98,14 @@ namespace CashoutServices
                         command.CommandText = "SELECT URL FROM LIST_URL WHERE partnerID=@partnerID and trxType=@trxType LIMIT 1";
                         command.Parameters.AddWithValue("@partnerID", partnerID);
                         command.Parameters.AddWithValue("@trxType", trxType);
-                        return command.ExecuteScalar().ToString();
+                        string url= command.ExecuteScalar().ToString();
+                        Log.Information($"Found, returning URL {url}");
+                        return url;
                     }
                 }
             }catch(Exception ex)
             {
+                Log.Error($"Error! URL for {partnerID} {trxType} not found");
                 return "[ERROR] URL NOT FOUND";
             }
         }
@@ -115,16 +116,18 @@ namespace CashoutServices
         }
 
 
-        public static void InsertTransaction(string trxID, string productType, string timeStamp,string amount,
+
+        public static void InsertTransaction(string trxID, string productType, string timeStamp, string amount,
             string otp, string customerNumber, string cacode, string request, string trxType)
         {
             Log.Information($"Insert Transaction {trxID};{productType};{amount};{otp};{trxType};{request}");
-            using(MySqlConnection connection = GetConnection())
+            using (MySqlConnection connection = GetConnection())
             {
                 connection.Open();
-                using(MySqlCommand command = connection.CreateCommand())
+                using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO TRANSACTION (trxID, productType, timeStamp, amount, otp, customerNumber, cacode, request, trxType) " +
+                    string table = (trxType != "REVERSAL") ? "TRANSACTION" : "REVERSAL";
+                    command.CommandText = $"INSERT INTO {table} (trxID, productType, timeStamp, amount, otp, customerNumber, cacode, request, trxType) " +
                       "VALUES (@trxID, @productType, @timeStamp, @amount, @otp, @customerNumber, @cacode, @request, @trxType)";
 
                     command.Parameters.AddWithValue("@trxID", trxID);
@@ -138,30 +141,70 @@ namespace CashoutServices
                     command.Parameters.AddWithValue("@trxType", trxType);
                     command.ExecuteNonQuery();
 
+                    if (trxType == "REVERSAL")
+                    {
+                        command.CommandText = $"UPDATE TRANSACTION SET reversalDate=@reversalDate, reversalCode=@reversalCode," +
+                            "reversalMessage=@reversalMessage where otp=@otp and trxID=@trxID and trxType!='REVERSAL'";
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@reversalDate",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        command.Parameters.AddWithValue("@reversalCode","XX");
+                        command.Parameters.AddWithValue("@reversalMessage","Before Request");
+                        command.Parameters.AddWithValue("@otp",otp);
+                        command.Parameters.AddWithValue("@trxID",trxID);
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
         }
 
-        public static void UpdateTransaction(string trxID, string trxType, string response, string responseCode, string responseMessage, string trxConfirm)
+        public static void UpdateTransaction(string trxID,string otp, string trxType, string response, string responseCode, string responseMessage, string trxConfirm)
         {
             Log.Information($"Update Transaction {trxID};{trxType};{response};{responseCode};{responseMessage};{trxConfirm}");
             using (MySqlConnection connection = GetConnection())
             {
+                string table = (trxType != "REVERSAL" ? "TRANSACTION" : "REVERSAL");
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE TRANSACTION SET response = @response, " +
+                    if (trxType != "REVERSAL")
+                    {
+                        command.CommandText = "UPDATE TRANSACTION SET response = @response, " +
                                           "responseCode = @responseCode, responseMessage = @responseMessage, trxConfirm = @trxConfirm " +
-                                          "WHERE trxID = @trxID and trxType = @trxType";
+                                          "WHERE trxID = @trxID and otp=@otp and trxType = @trxType";
+                        command.Parameters.AddWithValue("@trxID", trxID);
+                        command.Parameters.AddWithValue("@trxType", trxType);
+                        command.Parameters.AddWithValue("@response", response);
+                        command.Parameters.AddWithValue("@responseCode", responseCode);
+                        command.Parameters.AddWithValue("@responseMessage", responseMessage);
+                        command.Parameters.AddWithValue("@trxConfirm", trxConfirm);
+                        command.Parameters.AddWithValue("@otp", otp);
+                        command.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        command.CommandText = "UPDATE TRANSACTION SET reversalDate = @reversalDate, " +
+                                               "reversalCode = @reversalCode, reversalMessage = @reversalMessage " +  
+                                               "WHERE trxID = @trxID AND trxType = @trxType";
+                        command.Parameters.AddWithValue("@trxID", trxID);
+                        command.Parameters.AddWithValue("@trxType", trxType);
+                        command.Parameters.AddWithValue("@reversalDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        command.Parameters.AddWithValue("@reversalCode", responseCode);
+                        command.Parameters.AddWithValue("@reversalMessage", responseMessage);
+                        command.ExecuteNonQuery();
 
-                    command.Parameters.AddWithValue("@trxID", trxID);
-                    command.Parameters.AddWithValue("@trxType", trxType);
-                    command.Parameters.AddWithValue("@response", response);
-                    command.Parameters.AddWithValue("@responseCode", responseCode);
-                    command.Parameters.AddWithValue("@responseMessage", responseMessage);
-                    command.Parameters.AddWithValue("@trxConfirm", trxConfirm);
-                    command.ExecuteNonQuery();
-
+                        command.Parameters.Clear();
+                        command.CommandText = "UPDATE REVERSAL SET response = @response, " +
+                                         "responseCode = @responseCode, responseMessage = @responseMessage, trxConfirm = @trxConfirm " +
+                                         "WHERE trxID = @trxID and otp=@otp and trxType = @trxType";
+                        command.Parameters.AddWithValue("@trxID", trxID);
+                        command.Parameters.AddWithValue("@trxType", trxType);
+                        command.Parameters.AddWithValue("@response", response);
+                        command.Parameters.AddWithValue("@responseCode", responseCode);
+                        command.Parameters.AddWithValue("@responseMessage", responseMessage);
+                        command.Parameters.AddWithValue("@trxConfirm", "OK");
+                        command.Parameters.AddWithValue("@otp", otp);
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
         }
@@ -189,9 +232,25 @@ namespace CashoutServices
                     {
                         HttpResponseMessage response = client.PostAsync(url, content).GetAwaiter().GetResult();
                         responseString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                        Log.Information($"HTTP POST Response : {responseString}");
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            Log.Error($"HTTP POST Request to {url} failed. Response: {responseString}");
+                            if (!string.IsNullOrWhiteSpace(responseString))
+                            {
+                                responseString = $"[ERROR]|{response.StatusCode}|{response.ReasonPhrase}";
+                            }
+                            else
+                            {
+                                throw new WebException();
+                            }
+                        }
+                        else
+                        {
+                            Log.Information($"HTTP POST Response: {responseString}");
+                        }
+                        return responseString;
                     }
-                    return responseString;
+
                 }
             }
             catch (WebException webEx)
@@ -304,7 +363,7 @@ namespace CashoutServices
         }
 
 
-        public static bool CheckReversal(string trxID, string productType, string cacode,  string otp)
+        public static bool CheckReversal(string trxID, string productType, string cacode,  string otp, string amount)
         {
             try
             {
@@ -314,10 +373,11 @@ namespace CashoutServices
                     using(MySqlCommand command = connection.CreateCommand())
                     {
                         command.CommandText = $"SELECT COUNT(*) FROM TRANSACTION WHERE " +
-                            "trxID=@trxID and otp=@otp and cacode=@cacode LIMIT 1";
+                            "trxID=@trxID and otp=@otp and cacode=@cacode and amount=@amount LIMIT 1";
                         command.Parameters.AddWithValue("@trxID", trxID);
                         command.Parameters.AddWithValue("@cacode", cacode);
                         command.Parameters.AddWithValue("@otp", otp);
+                        command.Parameters.AddWithValue("@amount", amount);
                         return Convert.ToInt32(command.ExecuteScalar().ToString()) > 0;
                     }
                 }

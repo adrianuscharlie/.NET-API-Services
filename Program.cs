@@ -1,4 +1,5 @@
-﻿using CashoutServices.Partner;
+﻿using CashoutServices;
+using CashoutServices.Partner;
 using CashoutServices.Services;
 using Serilog;
 using StackExchange.Redis;
@@ -11,14 +12,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Register Redis connection using "localhost:6379"
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-    ConnectionMultiplexer.Connect("localhost:6379") // Redis in Docker
+    ConnectionMultiplexer.Connect(Function.GetConfiguration("ApplicationSettings:redisServices")) // Redis in Docker
 );
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day) // Logs to a file
     .WriteTo.MySQL(
-        connectionString: "server=127.0.0.1;user id=charlie;Password=kickMyAss;persist security info=True;port=3306;database=cashoutservices;Connection Timeout=2000;Allow User Variables=True",
+        connectionString: Function.GetConfiguration("ApplicationSettings:connectionString"),
         tableName: "logs")
     .CreateLogger();
 
@@ -32,14 +33,19 @@ builder.Services.AddScoped<IKredigramServices, KredigramServices>();
 
 // ✅ Register Partner Implementations
 builder.Services.AddScoped<DANACO>();
-builder.Services.AddScoped<Gopay>();
+builder.Services.AddScoped<GopayCO>();
+builder.Services.AddScoped<ISakuCO>();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.Never;
+});
+
 
 
 var app = builder.Build();
 
 app.UseSerilogRequestLogging(); // ✅ Log HTTP requests
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     Serilog.Debugging.SelfLog.Enable(Console.Error);

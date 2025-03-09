@@ -1,4 +1,6 @@
 ﻿using CashoutServices.Partner;
+using Serilog;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace CashoutServices.Services
 {
@@ -17,14 +19,24 @@ namespace CashoutServices.Services
         }
 
 
-        public IPartnerHandler GetPartnerHandler(string partnerID, string partner)
+        public IPartnerHandler GetPartnerHandler(string kredigram, string partner)
         {
-            return (partnerID, partner) switch
+            Log.Information($"Getting Mode Kredigram Handler CASHOUT for {kredigram} {partner}");
+            try
             {
-                ("STANDARD", "DANA") => serviceProvider.GetRequiredService<DANACO>(),
-                ("SNAP", "GOPAY") => serviceProvider.GetRequiredService<Gopay>(),
-                _ => throw new Exception($"No handler found for PartnerID: {partnerID} and Partner: {partner}")
-            };
+                return (kredigram, partner) switch
+                {
+                    ("STANDARD", "DANA") => serviceProvider.GetRequiredService<DANACO>(),
+                    ("SNAP", "GOPAY") => serviceProvider.GetRequiredService<GopayCO>(),
+                    ("SNAP", "ISAKU") => serviceProvider.GetRequiredService<ISakuCO>(),
+                    _ => throw new Exception($"No handler found for PartnerID: {kredigram} and Partner: {partner}")
+                };
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex.Message);
+                return null;
+            }
         }
 
     }

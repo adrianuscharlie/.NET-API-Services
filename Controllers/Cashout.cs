@@ -2,7 +2,6 @@
 using CashoutServices.Models;
 using CashoutServices.Services;
 using Serilog;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CashoutServices.Controllers
 {
@@ -21,18 +20,15 @@ namespace CashoutServices.Controllers
         {
             try
             {
-                Log.Information($"Request Masuk  CACODE:{request.cacode};customerNumber:{request.customerNumber};amount:{request.amount};trxType:{request.trxType}");
-                if (request == null) {
-                    Log.Error($"Bad Request");
-                    return BadRequest("Wrong JSON Request");
-                }
-                return Ok(services.Cashout(request));
+                Log.Information($"Request Received  CACODE:{request.cacode};customerNumber:{request.customerNumber};amount:{request.amount};trxType:{request.trxType}");
+                Response response = services.Cashout(request);
+                if (response.responseCode.StartsWith("50")) return StatusCode(500, response);
+                return Ok(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, "Internal Server Error");
             }
-
         }
     }
 }

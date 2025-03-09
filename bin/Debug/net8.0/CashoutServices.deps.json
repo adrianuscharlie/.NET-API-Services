@@ -13,7 +13,6 @@
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.21.0",
           "MySql.Data": "9.2.0",
           "Newtonsoft.Json": "13.0.3",
-          "RabbitMQ.Client": "7.1.1",
           "Serilog": "4.2.0",
           "Serilog.AspNetCore": "9.0.0",
           "Serilog.Sinks.MySQL": "5.0.0",
@@ -348,18 +347,6 @@
           "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "2.2.8.1080"
-          }
-        }
-      },
-      "RabbitMQ.Client/7.1.1": {
-        "dependencies": {
-          "System.IO.Pipelines": "9.0.2",
-          "System.Threading.RateLimiting": "8.0.0"
-        },
-        "runtime": {
-          "lib/net8.0/RabbitMQ.Client.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.1.1.0"
           }
         }
       },
@@ -708,7 +695,6 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Threading.RateLimiting/8.0.0": {},
       "System.Threading.Tasks/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -965,13 +951,6 @@
       "sha512": "sha512-zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
       "path": "pipelines.sockets.unofficial/2.2.8",
       "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
-    },
-    "RabbitMQ.Client/7.1.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-WggKwAQqPyV3h4RADfWgHA8LuVQkOgkh335rn578JZI6BDH8Z1ICztY32vr57NlhbN3eELPjLerPK3P+O/w/Yw==",
-      "path": "rabbitmq.client/7.1.1",
-      "hashPath": "rabbitmq.client.7.1.1.nupkg.sha512"
     },
     "Serilog/4.2.0": {
       "type": "package",
@@ -1238,13 +1217,6 @@
       "sha512": "sha512-RpT2DA+L660cBt1FssIE9CAGpLFdFPuheB7pLpKpn6ZXNby7jDERe8Ua/Ne2xGiwLVG2JOqziiaVCGDon5sKFA==",
       "path": "system.text.regularexpressions/4.3.0",
       "hashPath": "system.text.regularexpressions.4.3.0.nupkg.sha512"
-    },
-    "System.Threading.RateLimiting/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7mu9v0QDv66ar3DpGSZHg9NuNcxDaaAcnMULuZlaTpP9+hwXhrxNGsF5GmLkSHxFdb5bBc1TzeujsRgTrPWi+Q==",
-      "path": "system.threading.ratelimiting/8.0.0",
-      "hashPath": "system.threading.ratelimiting.8.0.0.nupkg.sha512"
     },
     "System.Threading.Tasks/4.3.0": {
       "type": "package",

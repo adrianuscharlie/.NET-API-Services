@@ -1,4 +1,7 @@
-﻿using Org.BouncyCastle.Asn1.IsisMtt.X509;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Asn1.IsisMtt.X509;
 using System.ComponentModel.DataAnnotations;
 using System.Security.AccessControl;
 
@@ -14,6 +17,7 @@ namespace CashoutServices.Models
         public string customerNumber { get; set; }
         public string trxType { get; set; }
         public string amount { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public object detail { get; set; }
 
     }
@@ -24,8 +28,10 @@ namespace CashoutServices.Models
         public string responseMessage { get; set; }
         public string originalReferenceNo { get; set; }
         public string referenceNo { get; set; }
+        public string customerNumber { get; set; }
         public string transactionDate { get;set; }
-        public object additionalInfo { get;set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public Dictionary<string,string> additionalInfo { get;set; }
     }
 
     public class ConfigRequest
@@ -69,6 +75,7 @@ namespace CashoutServices.Models
         public string productType { get; set; }
         public string trxType { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public object Detail { get; set; }
 
     }
@@ -84,11 +91,12 @@ namespace CashoutServices.Models
     public class ResponseStandard
     {
         public string timeStamp { get; set; }
-        public string cliendID { get; set; }
+        public string clientID { get; set; }
         public string productType { get; set; }
         public string trxType { get; set; }
 
-        public DetailStandard Detail { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public JObject Detail { get; set; }
         public string RespCode { get; set; }
         public string RespDetail { get; set; }
     }
@@ -101,6 +109,7 @@ namespace CashoutServices.Models
         public string customerNumber { get; set; }
         public string otp { get; set; }
         public Amount amount { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public object additionalInfo { get; set; }
         public RequestCashoutSNAP() { }
     }
@@ -112,7 +121,8 @@ namespace CashoutServices.Models
         public string referenceNo { get; set; }
         public string partnerReferenceNo { get; set; }
         public string transactionDate { get; set; }
-        public object additionalInfo { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public JObject additionalInfo { get; set; }
     }
 
     public class RequestReversalSnap
@@ -121,6 +131,7 @@ namespace CashoutServices.Models
         public string originalReferenceNo { get; set; }
         public string customerNumber { get; set; }
         public string reason { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public object additionalInfo { get; set; }
         public RequestReversalSnap() { }
     }
@@ -131,10 +142,10 @@ namespace CashoutServices.Models
     {
         public string responseCode { get; set; }
         public string responseMessage { get; set; }
-        public string OriginalPartnerReferenceNo { get; set; }
-        public string OriginalReferenceNo { get; set; }
-        public string CancelTime { get; set; }
-        public string TransactionDate { get; set; }
+        public string originalPartnerReferenceNo { get; set; }
+        public string originalReferenceNo { get; set; }
+        public string cancelTime { get; set; }
+        public string transactionDate { get; set; }
 
         public ResponseReversalSNAP() { }
     }

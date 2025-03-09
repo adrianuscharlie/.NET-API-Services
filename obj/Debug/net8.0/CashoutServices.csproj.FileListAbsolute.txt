@@ -32,7 +32,6 @@ D:\Coding\NET\CashoutServices\bin\Debug\net8.0\Microsoft.OpenApi.dll
 D:\Coding\NET\CashoutServices\bin\Debug\net8.0\MySql.Data.dll
 D:\Coding\NET\CashoutServices\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\Coding\NET\CashoutServices\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
-D:\Coding\NET\CashoutServices\bin\Debug\net8.0\RabbitMQ.Client.dll
 D:\Coding\NET\CashoutServices\bin\Debug\net8.0\Serilog.dll
 D:\Coding\NET\CashoutServices\bin\Debug\net8.0\Serilog.AspNetCore.dll
 D:\Coding\NET\CashoutServices\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll

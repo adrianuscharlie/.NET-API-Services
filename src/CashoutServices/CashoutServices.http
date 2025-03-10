@@ -1,0 +1,6 @@
+@CashoutServices_HostAddress = http://localhost:5121
+
+GET {{CashoutServices_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "CashoutServices.Controllers.Cashout",
+    "Method": "Post",
+    "RelativePath": "api/Cashout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CashoutServices.Models.Request",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CashoutServices.Controllers.Reversal",
+    "Method": "Post",
+    "RelativePath": "api/Reversal",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CashoutServices.Models.Request",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

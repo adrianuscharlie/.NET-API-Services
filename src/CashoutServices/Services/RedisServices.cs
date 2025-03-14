@@ -7,7 +7,7 @@ namespace CashoutServices.Services
 
         
         private static readonly Lazy<ConnectionMultiplexer> _lazyConnection =
-        new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("localhost:6379"));
+        new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(Function.GetConfiguration("ApplicationSettings:redisServices")));
 
         private static ConnectionMultiplexer Connection => _lazyConnection.Value;
         private readonly IDatabase _redisDB = Connection.GetDatabase();

@@ -1,0 +1,98 @@
+[
+  {
+    "ContainingType": "PartnerAPI.Controllers.B2BToken",
+    "Method": "B2BGopay",
+    "RelativePath": "api/B2BToken/Gopay",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestBody",
+        "Type": "PartnerAPI.Controllers.TokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PartnerAPI.Controllers.B2BToken",
+    "Method": "B2BISaku",
+    "RelativePath": "api/B2BToken/ISaku",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestBody",
+        "Type": "PartnerAPI.Controllers.TokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PartnerAPI.Controllers.Cashout",
+    "Method": "CashoutDana",
+    "RelativePath": "api/Cashout/Dana",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PartnerAPI.Models.RequestStandard",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PartnerAPI.Controllers.Cashout",
+    "Method": "CashoutGopay",
+    "RelativePath": "api/Cashout/Gopay",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PartnerAPI.Models.RequestSNAP",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PartnerAPI.Controllers.Cashout",
+    "Method": "CashoutISaku",
+    "RelativePath": "api/Cashout/ISaku",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PartnerAPI.Models.RequestSNAP",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PartnerAPI.Controllers.Reversal",
+    "Method": "Post",
+    "RelativePath": "api/Reversal/Dana",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PartnerAPI.Models.RequestStandard",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

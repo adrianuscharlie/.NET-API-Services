@@ -17,7 +17,7 @@ namespace CashoutServices
 
         private static readonly Lazy<RedisServices> _redisServices = new(() =>
         {
-            var redis = ConnectionMultiplexer.Connect("localhost:6379");
+            var redis = ConnectionMultiplexer.Connect(GetConfiguration("ApplicationSettings:redisServices"));
             return new RedisServices(redis);
         });
 

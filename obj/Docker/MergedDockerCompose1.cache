@@ -3,7 +3,7 @@ services:
   cashoutservices:
     build:
       context: D:\Coding\NET\CashoutServices
-      dockerfile: src\CashoutServices\Dockerfile
+      dockerfile: src/CashoutServices/Dockerfile
       args:
         BUILD_CONFIGURATION: Debug
         LAUNCHING_FROM_VS: "true"
@@ -11,106 +11,150 @@ services:
         com.microsoft.created-by: visual-studio
         com.microsoft.visual-studio.project-name: CashoutServices
       target: base
+    depends_on:
+      partnerAPI:
+        condition: service_started
+        required: true
+      redis:
+        condition: service_started
+        required: true
     entrypoint:
-      - C:\remote_debugger\x64\msvsmon.exe
-      - /noauth
-      - /anyuser
-      - /silent
-      - /nostatus
-      - /noclrwarn
-      - /nosecuritywarn
-      - /nofirewallwarn
-      - /nowowwarn
-      - /timeout:2147483646
-      - /LogDebuggeeOutputToStdOut
+      - dotnet
+      - --roll-forward
+      - Major
+      - /VSTools/DistrolessHelper/DistrolessHelper.dll
+      - --wait
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_HTTPS_PORTS: "8081"
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DB_HOST: host.docker.internal
+      DB_NAME: cashoutservices
+      DB_PASSWORD: kickMyAss
+      DB_PORT: "3306"
+      DB_USER: charlie
       DOTNET_USE_POLLING_FILE_WATCHER: "1"
-      NUGET_FALLBACK_PACKAGES: c:\.nuget\fallbackpackages
-      NUGET_PACKAGES: C:\.nuget\packages
+      NUGET_FALLBACK_PACKAGES: /.nuget/fallbackpackages
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
     image: cashoutservices:dev
     labels:
-      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath c:\.nuget\packages --additionalProbingPath c:\.nuget\fallbackpackages  "C:\app\bin\Debug\net8.0\CashoutServices.dll"'
-      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major C:\VSTools\DistrolessHelper\DistrolessHelper.dll --stop dotnet
-      com.microsoft.visualstudio.debuggee.program: '"C:\Program Files\dotnet\dotnet.exe"'
-      com.microsoft.visualstudio.debuggee.workingdirectory: C:\app
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /.nuget/packages --additionalProbingPath /.nuget/fallbackpackages  "/app/bin/Debug/net8.0/CashoutServices.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major /VSTools/DistrolessHelper/DistrolessHelper.dll --stop dotnet
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
     networks:
-      default: null
+      app-network: null
     ports:
+      - mode: ingress
+        target: 5000
+        published: "5000"
+        protocol: tcp
       - mode: ingress
         target: 8080
         protocol: tcp
       - mode: ingress
         target: 8081
         protocol: tcp
+    tty: true
     volumes:
       - type: bind
-        source: C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\HotReload
-        target: C:\HotReloadAgent
-        read_only: true
-        bind:
-          create_host_path: true
-      - type: bind
-        source: C:\Users\adria\AppData\Roaming\ASP.NET\Https
-        target: C:\Users\ContainerAdministrator\AppData\Roaming\ASP.NET\Https
-        read_only: true
-        bind:
-          create_host_path: true
-      - type: bind
-        source: C:\Users\adria\AppData\Roaming\Microsoft\UserSecrets
-        target: C:\Users\ContainerAdministrator\AppData\Roaming\Microsoft\UserSecrets
-        read_only: true
-        bind:
-          create_host_path: true
-      - type: bind
-        source: C:\Users\adria\AppData\Roaming\ASP.NET\Https
-        target: C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https
-        read_only: true
-        bind:
-          create_host_path: true
-      - type: bind
-        source: C:\Users\adria\AppData\Roaming\Microsoft\UserSecrets
-        target: C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets
-        read_only: true
-        bind:
-          create_host_path: true
-      - type: bind
-        source: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\win-x64\net8.0
-        target: C:\VSTools
-        read_only: true
-        bind:
-          create_host_path: true
-      - type: bind
         source: C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages
-        target: c:\.nuget\fallbackpackages
+        target: /.nuget/fallbackpackages
         read_only: true
         bind:
           create_host_path: true
       - type: bind
         source: C:\Users\adria\.nuget\packages
-        target: c:\.nuget\packages
+        target: /.nuget/packages
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\HotReload
+        target: /HotReloadAgent
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\linux-x64\net8.0
+        target: /VSTools
         read_only: true
         bind:
           create_host_path: true
       - type: bind
         source: D:\Coding\NET\CashoutServices\src\CashoutServices
-        target: c:\app
+        target: /app
         bind:
           create_host_path: true
       - type: bind
-        source: C:\Users\adria\onecoremsvsmon\17.13.20109.5790
-        target: c:\remote_debugger
+        source: C:\Users\adria\AppData\Roaming\ASP.NET\Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\adria\AppData\Roaming\Microsoft\UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\adria\vsdbg\vs2017u5
+        target: /remote_debugger
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\adria\AppData\Roaming\ASP.NET\Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\adria\AppData\Roaming\Microsoft\UserSecrets
+        target: /root/.microsoft/usersecrets
         read_only: true
         bind:
           create_host_path: true
       - type: bind
         source: D:\Coding\NET\CashoutServices
-        target: c:\src
+        target: /src
         bind:
           create_host_path: true
+  partnerAPI:
+    image: partnerAPI
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5001
+        published: "5001"
+        protocol: tcp
+  redis:
+    command:
+      - redis-server
+      - --requirepass
+      - your_strong_password
+    image: redis:alpine
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 6379
+        published: "6379"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: redis_data
+        target: /data
+        volume: {}
 networks:
+  app-network:
+    name: dockercompose7368255552752006811_app-network
+    driver: bridge
   default:
     name: dockercompose7368255552752006811_default
+volumes:
+  redis_data:
+    name: dockercompose7368255552752006811_redis_data

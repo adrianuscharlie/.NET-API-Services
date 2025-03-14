@@ -2,22 +2,16 @@ version: '3.8'
 
 services:
   cashoutservices:
-    image: ${DOCKER_REGISTRY-}cashoutservices
+    image: cashoutservices
     build:
       context: .
-      dockerfile: src\CashoutServices\Dockerfile
+      dockerfile: src/CashoutServices/Dockerfile
     networks:
       - app-network
     depends_on:
       - redis
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - DB_HOST=192.168.1.100  # Change to your external MySQL IP/hostname
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASSWORD=your_password
-      - DB_NAME=cashoutdb
+    ports:
+      - "5000:5000"
 
   redis:
     image: redis:alpine
@@ -27,8 +21,7 @@ services:
       - redis_data:/data
     networks:
       - app-network
-    command: redis-server --requirepass your_strong_password  # Optional password protection
-
+    
 volumes:
   redis_data:
 

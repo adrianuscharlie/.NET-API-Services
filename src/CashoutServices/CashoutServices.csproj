@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Certificate\Gopay\" />
+    <Folder Include="logs\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,6 +5,9 @@ services:
       context: D:\Coding\NET\CashoutServices
       dockerfile: src/CashoutServices/Dockerfile
     depends_on:
+      partnerAPI:
+        condition: service_started
+        required: true
       redis:
         condition: service_started
         required: true
@@ -12,10 +15,16 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_HTTPS_PORTS: "8081"
+      DB_HOST: host.docker.internal
+      DB_NAME: cashoutservices
+      DB_PASSWORD: kickMyAss
+      DB_PORT: "3306"
+      DB_USER: charlie
       REDIS_HOST: redis
+      REDIS_PORT: "6379"
     image: cashoutservices
     networks:
-      app_network: null
+      app-network: null
     ports:
       - mode: ingress
         target: 5000
@@ -30,38 +39,56 @@ services:
     volumes:
       - type: bind
         source: C:\Users\adria\AppData\Roaming/Microsoft/UserSecrets
-        target: C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets
+        target: /home/app/.microsoft/usersecrets
         read_only: true
         bind:
           create_host_path: true
       - type: bind
         source: C:\Users\adria\AppData\Roaming/Microsoft/UserSecrets
-        target: C:\Users\ContainerAdministrator\AppData\Roaming\Microsoft\UserSecrets
+        target: /root/.microsoft/usersecrets
         read_only: true
         bind:
           create_host_path: true
       - type: bind
         source: C:\Users\adria\AppData\Roaming/ASP.NET/Https
-        target: C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https
+        target: /home/app/.aspnet/https
         read_only: true
         bind:
           create_host_path: true
       - type: bind
         source: C:\Users\adria\AppData\Roaming/ASP.NET/Https
-        target: C:\Users\ContainerAdministrator\AppData\Roaming\ASP.NET\Https
+        target: /root/.aspnet/https
         read_only: true
         bind:
           create_host_path: true
-  redis:
-    image: redis:latest
+  partnerAPI:
+    image: partnerAPI
     networks:
-      app_network: null
+      default: null
+  redis:
+    command:
+      - redis-server
+      - --requirepass
+      - your_strong_password
+    image: redis:alpine
+    networks:
+      app-network: null
     ports:
       - mode: ingress
         target: 6379
         published: "6379"
         protocol: tcp
-    restart: always
+    volumes:
+      - type: volume
+        source: redis_data
+        target: /data
+        volume: {}
 networks:
-  app_network:
-    name: dockercompose7368255552752006811_app_network
+  app-network:
+    name: dockercompose7368255552752006811_app-network
+    driver: bridge
+  default:
+    name: dockercompose7368255552752006811_default
+volumes:
+  redis_data:
+    name: dockercompose7368255552752006811_redis_data

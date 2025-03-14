@@ -19,7 +19,6 @@ D:\Coding\NET\CashoutServices\bin\Debug\Serilog.Sinks.MySQL.dll
 D:\Coding\NET\CashoutServices\bin\Debug\Serilog.Extensions.Hosting.dll
 D:\Coding\NET\CashoutServices\bin\Debug\Microsoft.Extensions.Hosting.Abstractions.dll
 D:\Coding\NET\CashoutServices\bin\Debug\Serilog.Extensions.Logging.dll
-D:\Coding\NET\CashoutServices\bin\Debug\Serilog.AspNetCore.dll
 D:\Coding\NET\CashoutServices\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
 D:\Coding\NET\CashoutServices\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Coding\NET\CashoutServices\bin\Debug\Microsoft.Extensions.Configuration.dll

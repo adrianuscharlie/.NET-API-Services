@@ -7,25 +7,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// Register Redis connection using "localhost:6379"
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-    ConnectionMultiplexer.Connect(Function.GetConfiguration("ApplicationSettings:redisServices")) // Redis in Docker
+    ConnectionMultiplexer.Connect(Function.GetConfiguration("ApplicationSettings:redisServices")) 
 );
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day) // Logs to a file
+    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
     .WriteTo.MySQL(
         connectionString: Function.GetConfiguration("ApplicationSettings:connectionString"),
         tableName: "logs")
     .CreateLogger();
 
 
-//builder.Host.UseSerilog(logger); // 🔥 Ensure .NET Core uses Serilog
-builder.Host.UseSerilog(); // Use Serilog instead of default logger
+builder.Host.UseSerilog(); 
 
 // ✅ Register Services
 builder.Services.AddScoped<ICashoutServices, CashoutService>();
@@ -44,7 +41,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 var app = builder.Build();
 
-app.UseSerilogRequestLogging(); // ✅ Log HTTP requests
+app.UseSerilogRequestLogging(); 
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "AZdvpKEBE1fmdhtH+najQyMDc06AJABd8iX00oz5rwU=",
+  "Source": "PartnerAPI",
+  "BasePath": "_content/PartnerAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

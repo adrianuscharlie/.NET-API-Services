@@ -1,8 +1,8 @@
 # **🚀 .NET API for Cashout OTC Aggregator Services**  
 
-📌 **Version:** `v1.0.0`  
+📌 **Version:** `v1.0.1`  
 📌 **Author:** Adrianus Charlie H.A.  
-📌 **Last Updated:** `09-03-2025`  
+📌 **Last Updated:** `14-03-2025`  
 
 ## **📖 Table of Contents**  
 - [Introduction](#introduction)  
@@ -10,14 +10,10 @@
 - [Prerequisites](#prerequisites)  
 - [Installation](#installation)  
 - [Configuration](#configuration)  
-- [Running the API](#running-the-api)  
 - [API Endpoints](#api-endpoints)  
 - [Database Schema](#database-schema)  
 - [Error Handling](#error-handling)  
-- [Testing](#testing)  
 - [Deployment](#deployment)  
-- [Contributing](#contributing)  
-- [License](#license)  
 
 
 ## **📌 Introduction**  
@@ -53,17 +49,6 @@ dotnet restore
 ## **⚙️ Configuration**  
 The detailed configuration can be see through the appsettings.json
 
-
-
-## **🚀 Running the API**  
-Run the API locally:  
-```sh
-dotnet run
-```
-Or using Docker:  
-```sh
-docker-compose up --build
-```
 
 ---
 
@@ -137,9 +122,8 @@ docker-compose up --build
 }
 ```
 
-
 ## **🗂 Database Schema**  
-Database schema and dummy data for testing are available on **cashoutservices.sql**
+Database schema and dummy data for testing are available on **cashoutservices.sql** inside the DB folder. You can use mysql or XAMPP and import the database using that sql file.
 
 
 ## **⚠️ Error Handling**  
@@ -154,17 +138,17 @@ This API follows structured error handling using HTTP status codes:
 
 ---
 
-## **🧪 Testing**  
-Run tests using xUnit/NUnit:  
-```sh
-dotnet test
-```
-
----
-
 ## **🚀 Deployment**  
 ### **Using Docker**  
+#### **Running the CashoutServices**
 ```sh
-docker build -t my-api .
-docker run -p 5000:5000 my-api
+docker compose up --build -d
 ```
+
+#### **Running Redis Services**
+``sh
+docker run --name redis-container -d -p 6379:6379 redis
+``
+### **Running the PartnerAPI Services**
+run the .exe (in Windows) or .dll (in Linux) in the bin/Debug folder
+
